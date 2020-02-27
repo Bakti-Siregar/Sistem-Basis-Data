@@ -1,2 +1,3 @@
-# Sistem-Data-Base
-Materi untuk Matkul Sites Database
+# Sistem Basis Data
+
+Materi untuk Matkul Sistem Basis Data
