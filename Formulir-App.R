@@ -1,71 +1,7 @@
 library(shiny)
 
 # Definisikan suatu vector untuk menyimpan informasi yang ingin disimpan/ditampilkan
-variabel <- c("id","nama","usia","kelamin", "pengalaman_shiny", "berapa_tahun")
-
-
-# # Simpan tanggapan (Form yang diisikan oleh user)
-# # ---- Fungsi ini berfungsi untuk melakukan pengumpulan data ----
-# saveData <- function(data) {
-#     data <- as.data.frame(t(data))
-#     if (exists("respon")) {
-#         respon <<- rbind(respon, data)
-#     } else {
-#         respon <<- data
-#     }
-# }
-# 
-# # Muat semua respons yang sudah disimpan sebelumnya
-# # ---- Fungsi ini berfungsi untuk memuat semua data yang sudah disimpan ----
-# loadData <- function() {
-#     if (exists("respon")) {
-#         respon
-#     }
-# }
-
-
-library(RMySQL)
-
-saveData <- function(data) {
-
-# # Buatkan Database baru
-#     db <- dbConnect(MySQL(),
-#                       user='root',
-#                       password='',
-#                       host='localhost')
-#     dbExecute(db,"CREATE DATABASE formulir")
-
-# Koneksi ke database
-    db <- dbConnect(MySQL(),
-                    user='root',
-                    password='',
-                    dbname='formulir',
-                    host='localhost')
-    # input / simpan tabel "respons" ke basis data
-    # Buat Query pembaruan data dengan pengulangan
-    query <- sprintf("INSERT INTO %s (%s) VALUES ('%s')","respon",
-        paste(names(data), collapse = ", "),
-        paste(data, collapse = "', '")
-    )
-    # Kirim permintaan pembaruan dan putuskan basis data
-    dbGetQuery(db, query)
-    dbDisconnect(db)
-}
-
-loadData <- function() {
-    # Hubungkan ke database
-    db <- dbConnect(MySQL(),
-                    user='root',
-                    password='',
-                    dbname='formulir',
-                    host='localhost')
-    # Bangun Query pengambilan data
-    query <- sprintf("SELECT * FROM %s", "respon")
-    # Kirim kueri pengambilan data dan putuskan koneksi basis data
-    data <- dbGetQuery(db, query)
-    dbDisconnect(db)
-    data
-}
+variabel <- c("nama","usia","kelamin", "pengalaman_shiny", "berapa_tahun")
 
 # Buatlah UI-nya untuk mengumpulkan beberapa informasi dari pengguna web atau apps.
 shinyApp(
@@ -101,6 +37,3 @@ shinyApp(
         })     
     }
 )
-
-
-
